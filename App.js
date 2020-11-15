@@ -1,21 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as Fonts from "expo-font";
+import React, { useState } from "react";
+import { AppLoading } from "expo";
+
+import HomeStack from "./HomeStack";
+
+const getFonts = () => {
+  return Fonts.loadAsync({
+    Montserrat: require("./assets/fonts/Montserrat-Thin.ttf"),
+    Rubik: require("./assets/fonts/BalsamiqSans-Regular.ttf"),
+  });
+};
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [fonts, setfonts] = useState(false);
+
+  if (fonts) {
+    return <HomeStack />;
+    console.reportErrorsAsExceptions = false;
+  } else {
+    return <AppLoading startAsync={getFonts} onFinish={() => setfonts(true)} />;
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
